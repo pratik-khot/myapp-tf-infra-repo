@@ -33,7 +33,22 @@ output "eks_cluster_certificate_authority_data" {
 
 output "eks_cluster_name" {
   value = module.eks.eks_cluster_name
+}
 
+output "external_dns_role_arn" {
+  value = module.eks.external_dns_role_arn
+}
+
+output "external_dns_pod_identity_association_id" {
+  value = module.eks.external_dns_pod_identity_association_id
+}
+
+output "secrets_store_provider_role_arn" {
+  value = module.eks.secrets_store_provider_role_arn
+}
+
+output "secrets_store_provider_pod_identity_association_id" {
+  value = module.eks.secrets_store_provider_pod_identity_association_id
 }
 
 output "eks_cluster_connection" {
@@ -42,6 +57,25 @@ output "eks_cluster_connection" {
 
 }
 
+output "load_balancer_controller_arn" {
+  value = module.eks.load_balancer_controller_role_arn
+}
+
+output "load_balancer_controller_role_arn" {
+  value = module.eks.load_balancer_controller_role_arn
+}
+
+output "vpc_cni_role_arn" {
+  value = module.eks.vpc_cni_role_arn
+}
+
+output "ebs_csi_role_arn" {
+  value = module.eks.ebs_csi_role_arn
+}
+
+output "load_balancer_controller_pod_identity_association_id" {
+  value = module.eks.load_balancer_controller_pod_identity_association_id
+}
 output "aws_instance_id" {
   value = module.ec2.instance_id
 }

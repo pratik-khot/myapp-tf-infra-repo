@@ -62,6 +62,32 @@ variable "cluster_version" {
   default     = "1.36"
 }
 
+variable "node_group_scaling" {
+  description = "Scaling configuration for the standard EKS managed node group."
+  type = object({
+    desired_size = number
+    max_size     = number
+    min_size     = number
+  })
+  default = {
+    desired_size = 3
+    max_size     = 5
+    min_size     = 1
+  }
+}
+
+variable "node_instance_types" {
+  description = "EC2 instance types for the standard EKS managed node group."
+  type        = list(string)
+  default     = ["t3.medium"]
+}
+
+variable "node_disk_size" {
+  description = "Root disk size in GiB for standard EKS managed node-group nodes."
+  type        = number
+  default     = 100
+}
+
 variable "region" {
   description = "The AWS region where the EKS cluster will be created."
   type        = string
@@ -102,6 +128,36 @@ variable "create_lbc_role" {
   description = "Whether to create an IAM role,policy,PIA for the AWS Load Balancer Controller"
   type        = bool
   default     = false
+}
+
+variable "create_external_dns_role" {
+  description = "Whether to create the ExternalDNS IAM role, policy, and Pod Identity association."
+  type        = bool
+  default     = false
+}
+
+variable "external_dns_hosted_zone_arns" {
+  description = "Route 53 hosted-zone ARNs that ExternalDNS may manage."
+  type        = list(string)
+  default     = []
+}
+
+variable "create_secrets_store_provider_role" {
+  description = "Whether to create the Secrets Store CSI provider IAM role, policy, and Pod Identity association."
+  type        = bool
+  default     = false
+}
+
+variable "secrets_manager_secret_arns" {
+  description = "Secrets Manager secret ARNs that the CSI provider may read."
+  type        = list(string)
+  default     = []
+}
+
+variable "secrets_manager_kms_key_arns" {
+  description = "KMS key ARNs that the CSI provider may use for decryption."
+  type        = list(string)
+  default     = []
 }
 
 variable "root_volume_specs" {
