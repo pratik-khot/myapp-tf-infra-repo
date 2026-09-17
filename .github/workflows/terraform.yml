@@ -1,0 +1,35 @@
+name: Terraform Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  security-check:
+    uses: pratik-khot/github-common-workflows/.github/workflows/security-check.yml@v1
+  terraform-plan:
+    needs: security-check
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1
+    with:
+      aws-region: ${{ vars.aws_region }}
+      terraform-version: ${{ vars.terraform_version }}
+    secrets: inherit
+  
+  terraform-apply:
+    needs: 
+      - security-check
+      - terraform-plan
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1
+    with:
+      aws-region: ${{ vars.aws_region }}
+      terraform-version: ${{ vars.terraform_version }}
+    secrets: inherit
