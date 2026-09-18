@@ -1,0 +1,8 @@
+compact: true
+quiet: true
+framework:
+- terraform
+
+skip-check:
+#Disable Commit hash checking for module sources
+- CKV_TF_1

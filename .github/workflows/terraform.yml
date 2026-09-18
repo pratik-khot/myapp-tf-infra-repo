@@ -11,25 +11,50 @@ on:
 permissions:
   contents: read
   id-token: write
+  security-events: write
 
 jobs:
-  security-check:
-    uses: pratik-khot/github-common-workflows/.github/workflows/security-check.yml@v1
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.changed.outputs.dirs }}
+      has-changes: ${{ steps.changed.outputs.has-changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: changed
+        uses: pratik-khot/github-common-workflows/.github/actions/changed-terraform-dirs@v1.2.0
+
+  checkov-scan:
+    needs: 
+      - detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    uses: pratik-khot/github-common-workflows/.github/workflows/checkov-scan.yml@v1.2.0
+    with:
+      scan-roots: ${{ needs.detect-changes.outputs.dirs }}
+
   terraform-plan:
-    needs: security-check
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1
+    needs: 
+      - detect-changes
+      - checkov-scan
+
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.2.0
     with:
       aws-region: ${{ vars.aws_region }}
-      terraform-version: ${{ vars.terraform_version }}
+      terraform-roots: ${{ needs.detect-changes.outputs.dirs }}
     secrets: inherit
   
   terraform-apply:
     needs: 
-      - security-check
       - terraform-plan
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1
+      - detect-changes
+      - checkov-scan
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.detect-changes.outputs.has-changes == 'true'
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.2.0
     with:
       aws-region: ${{ vars.aws_region }}
-      terraform-version: ${{ vars.terraform_version }}
+      terraform-roots: ${{ needs.detect-changes.outputs.dirs }}
     secrets: inherit
