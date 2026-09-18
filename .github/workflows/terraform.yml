@@ -13,10 +13,10 @@ permissions:
   id-token: write
 
 jobs:
-  security-check:
-    uses: pratik-khot/github-common-workflows/.github/workflows/security-check.yml@v1
+  security-scan:
+    uses: pratik-khot/github-common-workflows/.github/workflows/security-scan.yml@v1
   terraform-plan:
-    needs: security-check
+    needs: security-scan
     uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1
     with:
       aws-region: ${{ vars.aws_region }}
@@ -25,7 +25,7 @@ jobs:
   
   terraform-apply:
     needs: 
-      - security-check
+      - security-scan
       - terraform-plan
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1
