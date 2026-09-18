@@ -10,6 +10,10 @@ on:
         description: AWS region to use for the destroy operation.
         required: true
         type: string
+      environment:
+        description: The environment to use for the destroy operation.
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -17,11 +21,8 @@ permissions:
 
 jobs:
     terraform-destroy:
-        uses: pratik-khot/github-common-workflows/.github/workflows/terraform-destroy.yml@v1
+        uses: pratik-khot/github-common-workflows/.github/workflows/terraform-destroy.yml@v1.2.1
         with:
-          terraform-root: ${{inputs.terraform-root }}
+          terraform-root: ${{ inputs.terraform-root }}
           aws-region: ${{ inputs.aws-region }}
-          terraform-version: ${{ vars.terraform_version }}
-          allow-destroy: true
-          action: destroy
         secrets: inherit
