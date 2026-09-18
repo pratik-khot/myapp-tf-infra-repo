@@ -21,7 +21,7 @@ permissions:
 
 jobs:
     terraform-destroy:
-        uses: pratik-khot/github-common-workflows/.github/workflows/terraform-destroy.yml@v1.2.1
+        uses: pratik-khot/github-common-workflows/.github/workflows/terraform-destroy.yml@v1.2.2
         with:
           terraform-root: ${{ inputs.terraform-root }}
           aws-region: ${{ inputs.aws-region }}
