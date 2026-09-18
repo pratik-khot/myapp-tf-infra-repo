@@ -14,11 +14,15 @@ permissions:
   security-events: write
 
 jobs:
-  security-scan:
-    uses: pratik-khot/github-common-workflows/.github/workflows/security-scan.yml@v1
+  gitleaks-scan:
+    uses: pratik-khot/github-common-workflows/.github/workflows/gitleaks-scan.yml@v1.1.1
+  checkov-scan:
+    uses: pratik-khot/github-common-workflows/.github/workflows/checkov-scan.yml@v1.1.1
   terraform-plan:
-    needs: security-scan
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1
+    needs: 
+      - checkov-scan
+      - gitleaks-scan
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.1
     with:
       aws-region: ${{ vars.aws_region }}
       terraform-version: ${{ vars.terraform_version }}
@@ -26,10 +30,11 @@ jobs:
   
   terraform-apply:
     needs: 
-      - security-scan
+      - checkov-scan
+      - gitleaks-scan
       - terraform-plan
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.1
     with:
       aws-region: ${{ vars.aws_region }}
       terraform-version: ${{ vars.terraform_version }}
