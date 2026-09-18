@@ -11,6 +11,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  security-events: write
 
 jobs:
   detect-changes:
@@ -24,14 +25,22 @@ jobs:
         with:
           fetch-depth: 0
       - id: changed
-        uses: pratik-khot/github-common-workflows/.github/actions/changed-terraform-dirs@v1.1.4
+        uses: pratik-khot/github-common-workflows/.github/actions/changed-terraform-dirs@v1.1.5
+
+  checkov-scan:
+    needs: 
+      - detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    uses: pratik-khot/github-common-workflows/.github/workflows/checkov-scan.yml@v1.1.5
+    with:
+      terraform-roots: ${{ needs.detect-changes.outputs.dirs }}
 
   terraform-plan:
     needs: 
       - detect-changes
 
     if: needs.detect-changes.outputs.has-changes == 'true'
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.4
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.5
     with:
       aws-region: ${{ vars.aws_region }}
       terraform-roots: ${{ needs.detect-changes.outputs.dirs }}
@@ -42,7 +51,7 @@ jobs:
       - terraform-plan
       - detect-changes
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.detect-changes.outputs.has-changes == 'true'
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.4
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.5
     with:
       aws-region: ${{ vars.aws_region }}
       terraform-roots: ${{ needs.detect-changes.outputs.dirs }}
