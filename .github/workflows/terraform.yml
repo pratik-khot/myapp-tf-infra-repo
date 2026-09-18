@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   terraform-plan:
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.2
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.3
     with:
       aws-region: ${{ vars.aws_region }}
     secrets: inherit
@@ -24,7 +24,7 @@ jobs:
     needs: 
       - terraform-plan
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.2
+    uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.3
     with:
       aws-region: ${{ vars.aws_region }}
       environment: dev
