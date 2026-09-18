@@ -33,7 +33,7 @@ jobs:
     if: needs.detect-changes.outputs.has-changes == 'true'
     uses: pratik-khot/github-common-workflows/.github/workflows/checkov-scan.yml@v1.2.0
     with:
-      terraform-roots: ${{ needs.detect-changes.outputs.dirs }}
+      scan-roots: ${{ needs.detect-changes.outputs.dirs }}
 
   terraform-plan:
     needs: 
