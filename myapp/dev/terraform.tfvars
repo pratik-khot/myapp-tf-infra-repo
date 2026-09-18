@@ -22,12 +22,12 @@ node_instance_types                = ["t3.medium"]
 node_disk_size                     = 50
 eks_mode                           = "standard"
 auth_mode                          = "API_AND_CONFIG_MAP"
-create_lbc_role                    = false
-create_external_dns_role           = false
-create_secrets_store_provider_role = false
+create_lbc_role                    = true
+create_external_dns_role           = true
+create_secrets_store_provider_role = true
 secrets_manager_secret_arns        = []
 secrets_manager_kms_key_arns       = []
-external_dns_hosted_zone_arns      = ["arn:aws:route53:::hostedzone/Z09368942IV5PNICROSV8"]
+external_dns_hosted_zone_arns      = ["arn:aws:route53:::hostedzone/Z08925012WWSKV2YFQ1NM"]
 
 ##EC2 Instance vars
 ami_id           = "ami-0b6d9d3d33ba97d99"
