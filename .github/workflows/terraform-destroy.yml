@@ -25,4 +25,5 @@ jobs:
         with:
           terraform-root: ${{ inputs.terraform-root }}
           aws-region: ${{ inputs.aws-region }}
+          environment: ${{ inputs.environment }}
         secrets: inherit
