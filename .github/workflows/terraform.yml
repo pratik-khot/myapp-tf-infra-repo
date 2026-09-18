@@ -33,4 +33,5 @@ jobs:
     with:
       aws-region: ${{ vars.aws_region }}
       terraform-version: ${{ vars.terraform_version }}
+      environment: dev
     secrets: inherit
