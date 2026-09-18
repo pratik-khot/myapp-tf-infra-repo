@@ -18,7 +18,6 @@ jobs:
     uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.2
     with:
       aws-region: ${{ vars.aws_region }}
-      terraform-version: ${{ vars.terraform_version }}
     secrets: inherit
   
   terraform-apply:
@@ -28,6 +27,5 @@ jobs:
     uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.2
     with:
       aws-region: ${{ vars.aws_region }}
-      terraform-version: ${{ vars.terraform_version }}
       environment: dev
     secrets: inherit
