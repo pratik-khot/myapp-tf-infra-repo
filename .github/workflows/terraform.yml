@@ -38,6 +38,7 @@ jobs:
   terraform-plan:
     needs: 
       - detect-changes
+      - checkov-scan
 
     if: needs.detect-changes.outputs.has-changes == 'true'
     uses: pratik-khot/github-common-workflows/.github/workflows/terraform-plan.yml@v1.1.5
@@ -50,6 +51,7 @@ jobs:
     needs: 
       - terraform-plan
       - detect-changes
+      - checkov-scan
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.detect-changes.outputs.has-changes == 'true'
     uses: pratik-khot/github-common-workflows/.github/workflows/terraform-apply.yml@v1.1.5
     with:
