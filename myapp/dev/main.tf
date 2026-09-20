@@ -52,7 +52,7 @@ module "ec2" {
 }
 
 module "eks-auto" {
-  source                             = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/eks?ref=v1.0.0"
+  source                             = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/eks?ref=v0.2.1"
   cluster_name                       = "eks-auto"
   cluster_version                    = "1.36"
   region                             = "us-east-1"
