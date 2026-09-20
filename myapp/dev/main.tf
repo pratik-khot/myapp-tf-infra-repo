@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/vpc?ref=v0.2.1"
+  source = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/vpc?ref=v0.2.2"
 
   region                  = var.region
   vpc_cidr                = var.vpc_cidr
@@ -14,7 +14,7 @@ module "vpc" {
 }
 
 module "eks-standard" {
-  source                             = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/eks?ref=v0.2.1"
+  source                             = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/eks?ref=v0.2.2"
   cluster_name                       = var.cluster_name
   cluster_version                    = var.cluster_version
   node_group_scaling                 = var.node_group_scaling
@@ -34,7 +34,7 @@ module "eks-standard" {
 }
 
 module "ec2" {
-  source               = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/ec2?ref=v0.2.1"
+  source               = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/ec2?ref=v0.2.2"
   ami_id               = var.ami_id
   instance_type        = var.instance_type
   availability_zone    = var.az
@@ -52,7 +52,7 @@ module "ec2" {
 }
 
 module "eks-auto" {
-  source                             = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/eks?ref=v0.2.1"
+  source                             = "git::https://github.com/pratik-khot/aws-terraform-modules.git//modules/eks?ref=v0.2.2"
   cluster_name                       = "eks-auto"
   cluster_version                    = "1.36"
   region                             = "us-east-1"
