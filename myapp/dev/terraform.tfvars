@@ -28,7 +28,8 @@ create_external_dns_role           = true
 create_secrets_store_provider_role = false
 secrets_manager_secret_arns        = []
 secrets_manager_kms_key_arns       = []
-external_dns_hosted_zone_arns      = ["arn:aws:route53:::hostedzone/Z08925012WWSKV2YFQ1NM"]
+external_dns_hosted_zone_arns      = ["arn:aws:route53:::hostedzone/Z06146882ZLBOOM6B9O7L"]
+cluster_admin_role_arn             = "arn:aws:iam::226860145733:user/cloud_user"
 
 ##EC2 Instance vars
 ami_id           = "ami-0b6d9d3d33ba97d99"
