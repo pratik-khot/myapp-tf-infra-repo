@@ -130,6 +130,12 @@ variable "create_lbc_role" {
   default     = false
 }
 
+variable "use_karpenter" {
+  description = "Whether to use Karpenter for the EKS cluster."
+  type        = bool
+  default     = false
+}
+
 variable "create_external_dns_role" {
   description = "Whether to create the ExternalDNS IAM role, policy, and Pod Identity association."
   type        = bool
@@ -216,5 +222,12 @@ variable "iam_instance_profile" {
 }
 
 variable "enable_public_ip" {
+  description = "Whether to enable a public IP for the EC2 instance."
+  type        = bool
+  default     = false
+}
 
+variable "cluster_admin_role_arn" {
+  description = "The ARN of the IAM role to be used as the EKS cluster admin."
+  type        = string
 }
