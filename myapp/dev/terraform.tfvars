@@ -14,8 +14,8 @@ default_sg_required = true
 cluster_name        = "myapp-eks"
 cluster_version     = "1.34"
 node_group_scaling = {
-  desired_size = 1
-  max_size     = 2
+  desired_size = 3
+  max_size     = 5
   min_size     = 1
 }
 node_instance_types                = ["t3.medium"]

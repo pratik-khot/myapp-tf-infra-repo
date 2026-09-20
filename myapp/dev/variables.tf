@@ -216,5 +216,12 @@ variable "iam_instance_profile" {
 }
 
 variable "enable_public_ip" {
+  description = "Whether to enable a public IP for the EC2 instance."
+  type        = bool
+  default     = false
+}
 
+variable "cluster_admin_role_arn" {
+  description = "The ARN of the IAM role to be used as the EKS cluster admin."
+  type        = string
 }
