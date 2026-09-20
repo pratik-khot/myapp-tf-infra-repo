@@ -130,6 +130,12 @@ variable "create_lbc_role" {
   default     = false
 }
 
+variable "use_karpenter" {
+  description = "Whether to use Karpenter for the EKS cluster."
+  type        = bool
+  default     = false
+}
+
 variable "create_external_dns_role" {
   description = "Whether to create the ExternalDNS IAM role, policy, and Pod Identity association."
   type        = bool

@@ -20,6 +20,7 @@ node_group_scaling = {
 }
 node_instance_types                = ["t3.medium"]
 node_disk_size                     = 50
+use_karpenter                      = true
 eks_mode                           = "standard"
 auth_mode                          = "API_AND_CONFIG_MAP"
 create_lbc_role                    = true
