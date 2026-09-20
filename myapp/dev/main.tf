@@ -61,6 +61,7 @@ module "eks-auto" {
   eks_mode                           = "auto"
   create_lbc_role                    = false
   create_external_dns_role           = true
+  external_dns_hosted_zone_arns      = var.external_dns_hosted_zone_arns
   create_secrets_store_provider_role = false
   use_karpenter                      = false
 }
