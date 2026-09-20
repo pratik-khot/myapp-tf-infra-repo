@@ -51,9 +51,15 @@ output "secrets_store_provider_pod_identity_association_id" {
   value = module.eks-standard.secrets_store_provider_pod_identity_association_id
 }
 
-output "eks_cluster_connection" {
+output "eks-standard_cluster_connection" {
   description = "cluster connection"
   value       = module.eks-standard.eks_cluster_connection
+
+}
+
+output "eks-auto_cluster_connection" {
+  description = "cluster connection"
+  value       = module.eks-auto.eks_cluster_connection
 
 }
 
